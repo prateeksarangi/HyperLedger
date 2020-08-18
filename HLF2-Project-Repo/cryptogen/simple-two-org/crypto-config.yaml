@@ -23,12 +23,12 @@ PeerOrgs:
     Users:
       Count: 2
 
-  # Peer configuration for ACME
-  - Name: Org2
-    Domain: budget.com
-    #EnableNodeOUs: true
-    Specs:
-      - Hostname: devpeer2
-        CommonName: devpeer2
-    Users:
-      Count: 2
+  # # Peer configuration for ACME
+  # - Name: Org2
+  #   Domain: budget.com
+  #   #EnableNodeOUs: true
+  #   Specs:
+  #     - Hostname: devpeer2
+  #       CommonName: devpeer2
+  #   Users:
+  #     Count: 2
