@@ -56,6 +56,30 @@ Organizations:
       - Host: peer1.acme.com
         Port: 7051
 
+  - &Org2
+    Name: Org2
+    ID: Org2MSP
+    MSPDir: ./crypto-config/peerOrganizations/acme.com/msp
+    Policies: &Org2Policies
+      Readers:
+          Type: Signature
+        #   Rule: "OR('AcmeMSP.admin', 'AcmeMSP.peer', 'AcmeMSP.client')"
+          Rule: "OR('Org2MSP.member')"
+      Writers:
+          Type: Signature
+        #   Rule: "OR('AcmeMSP.admin', 'AcmeMSP.client')"
+          Rule: "OR('Org2MSP.member')"
+      Admins:
+          Type: Signature
+          # UPDATE: Dec 15, 2019 - This is a dev env so its OK in Prod ... use AcmeMSP.admin
+          Rule: "OR('Org1MSP.member')"
+      Endorsement:
+          Type: Signature
+          Rule: "OR('Org1MSP.member')"
+    AnchorPeers:
+      - Host: peer1.acme.com
+        Port: 8051
+
   
 #   ORDERER
 Orderer: &OrdererDefaults
@@ -170,6 +194,17 @@ Profiles:
         
         Organizations:
             - <<: *Org1
+
+  AirlineChannel:
+    <<: *ChannelDefaults
+    Consortium: AirlineConsortium
+        
+    Application:
+        <<: *ApplicationDefaults
+        
+        Organizations:
+            - <<: *Org1
+              <<: *Org2
 
 
 
